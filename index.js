@@ -2,6 +2,7 @@ const express = require('express')
 const axios = require('axios');
 const querystring = require('querystring');
 const cors = require('cors');
+const bodyParser = require('body-parser')
 
 const fs = require('fs')
 //const key = fs.readFileSync("./key.pem")
@@ -9,6 +10,7 @@ const fs = require('fs')
 const https = require('https');
 const app = express()
 app.use(cors());
+app.use(bodyParser.json())
 const WebSocket = require('ws')
 //const server = https.createServer({key: key, cert: cert }, app)
 const port = 3000
