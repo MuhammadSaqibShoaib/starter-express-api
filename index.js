@@ -193,4 +193,4 @@ app.get('/testunity',(req,res) =>{
     });
     res.send("Got here")
 })
-server.listen(3000, () => { console.log('listening on 3000') });
+app.listen(3000)
