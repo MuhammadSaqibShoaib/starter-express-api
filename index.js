@@ -44,6 +44,7 @@ app.get('/',(req,res) => {
 //     console.log('listening on 8080')
 //  })
 app.post('/', async (req, res) => { 
+    console.log(req.body)
     const { code } = req.body;
        if(!code){
               return res.send("Hello!")
