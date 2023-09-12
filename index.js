@@ -81,7 +81,7 @@ app.post('/', async (req, res) => {
             axios.post(url, formData, { headers })
             .then((response) => {
                 // Handle the response data here
-                if(!response.ok){
+                if(!response.data.ok){
                     console.log(response.data)
                     return res.status(401).json({ status: 401, message: "Authentication Failed", data: null})
                 }
