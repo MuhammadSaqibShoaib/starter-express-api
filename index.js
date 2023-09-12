@@ -105,47 +105,13 @@ app.post('/', async (req, res) => {
 
 
 
-app.get('/test',(req,res)=>{
-    console.log(req.socket.remoteAddress)
-    global.userRemoteAddress = req.socket.remoteAddress
-    res.send(slackServerUrl)
-})
-
- app.get('/callwebsocket', (req, res) => {
-    // Create a WebSocket client to connect to the WebSocket server on port 8080
-    const client = new WebSocket('ws://localhost:8080/Laputa');
-
-    client.on('open', () => {
-        console.log('Connected to Unity WebSocket server.');
-    
-        // Send data to the Unity server
-        const dataToSend = 'Hello from Node.js!';
-        client.send(dataToSend);
-    });
-    
-    client.on('message', (data) => {
-        console.log('Received message from Unity WebSocket server:', data.toString('utf-8'));
-    });
-    
-    client.on('close', () => {
-        console.log('WebSocket connection closed.');
-    });
-
-    // client.on('close', () => {
-    //     console.log('WebSocket client closed');
-    // });
-
-    res.send("Hello World!")
-});
-
-
 app.post('/getprofile',(req,res)=>{
     console.log("got a request")
     // Get the Authorization header from the request
-    const authHeader = req.headers.authorization;
-    console.log(authHeader)
-    const bearerToken = authHeader.slice(7);
-    console.log("Token is : ".bearerToken)
+    const { code } = req.body;
+    console.log(code)
+    const bearerToken = code;
+    console.log("Token is : ",code)
     if(bearerToken){
         
         const config = {
@@ -160,42 +126,20 @@ app.post('/getprofile',(req,res)=>{
                 const data = JSON.stringify(response.data)
               // Handle the response here
               console.log('Response:', response.data.profile.first_name);
-              res.send(response.data.profile.image_512)
+              return res.send(response.data.profile.image_512)
             })
             .catch((error) => {
               // Handle any errors here
               console.error('Error:', error);
-              res.send("lanat hae bhai")
+              return res.send("lanat hae bhai")
             });
             
     }
     else{
-        res.send("from else")
+        return res.send("from else")
     }
 })
 
 
 
-// Testing unity server
-app.get('/testunity',(req,res) =>{
-    const client = new WebSocket(`ws://localhost:7777`);
-        //res.send(response.data)
-    client.on('open', () => {
-        console.log('Connected to Unity WebSocket server.');
-    
-        // // Send data to the Unity server
-         //console.log("Type of response data is : ",typeof(response.data))
-         const dataToSend =  Buffer.from('hello world','utf-8')
-         client.send(dataToSend);
-    });
-    
-    client.on('message', (data) => {
-        console.log('Received message from Unity WebSocket server:', data.toString('utf-8'));
-    });
-    
-    client.on('close', () => {
-        console.log('WebSocket connection closed.');
-    });
-    res.send("Got here")
-})
 app.listen(3000)
