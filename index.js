@@ -15,7 +15,9 @@ global.userRemoteAddress = ""
 // slack data
 const slackServerUrl = "https://slack.com/oauth/v2/authorize?scope=&user_scope=admin,channels:read,chat:write,groups:read,im:read,users.profile:read&redirect_uri=https://1.1.0.97:3001/&client_id=5845960045845.5842258443318\r\n"
 
-
+app.get('/',(req,res) => {
+       return res.send("Hello World!")
+})
 // app.get(/fromUnity)
 
 // const wss = new WebSocket.Server({ port : 8080}, ()=>{
