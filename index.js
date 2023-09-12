@@ -9,7 +9,7 @@ const https = require('https');
 const app = express()
 const WebSocket = require('ws')
 const server = https.createServer({key: key, cert: cert }, app)
-const port = 3001
+const port = 3000
 
 global.userRemoteAddress = ""
 // slack data
@@ -191,4 +191,4 @@ app.get('/testunity',(req,res) =>{
     });
     res.send("Got here")
 })
-server.listen(3001, () => { console.log('listening on 3001') });
+server.listen(3000, () => { console.log('listening on 3000') });
