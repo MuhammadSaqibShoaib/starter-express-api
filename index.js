@@ -46,15 +46,12 @@ app.get('/',(req,res) => {
 //     console.log('listening on 8080')
 //  })
 app.post('/', async (req, res) => { 
-    console.log(req.body)
+    console.log(req)
     const { code } = req.body;
        if(!code){
               return res.send("Hello!")
        }
     const ipAddress = req.socket.remoteAddress.replace('::ffff:', '');
-    //res.send(ipAddress);
-    console.log(code)
-    console.log(ipAddress)
   //res.send(code)
     try {
         if (code) {
@@ -84,7 +81,9 @@ app.post('/', async (req, res) => {
             axios.post(url, formData, { headers })
             .then((response) => {
                 // Handle the response data here
-                console.log('Response:1', response.data);
+                if(!response.ok){
+                    return res.status(401).json({ status: 402, message: "Authentication Failed", data: null})
+                }
                 // sending data to unity                
                 return res.status(200).json({ status: 200, message: "Authenticated", data: response.data})
             })
