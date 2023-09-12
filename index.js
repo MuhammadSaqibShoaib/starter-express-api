@@ -84,7 +84,7 @@ app.post('/', async (req, res) => {
             axios.post(url, formData, { headers })
             .then((response) => {
                 // Handle the response data here
-                console.log('Response:', response.data);
+                console.log('Response:1', response.data);
                 // sending data to unity                
                 return res.status(200).json({ status: 200, message: "Authenticated", data: response.data})
             })
