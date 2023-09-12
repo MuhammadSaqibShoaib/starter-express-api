@@ -82,7 +82,7 @@ app.post('/', async (req, res) => {
             .then((response) => {
                 // Handle the response data here
                 if(!response.ok){
-                    return res.status(401).json({ status: 402, message: "Authentication Failed", data: null})
+                    return res.status(401).json({ status: 401, message: "Authentication Failed", data: null})
                 }
                 // sending data to unity                
                 return res.status(200).json({ status: 200, message: "Authenticated", data: response.data})
