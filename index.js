@@ -3,12 +3,12 @@ const axios = require('axios');
 const querystring = require('querystring');
 
 const fs = require('fs')
-const key = fs.readFileSync("./key.pem")
-const cert = fs.readFileSync("./cert.pem")
+//const key = fs.readFileSync("./key.pem")
+//const cert = fs.readFileSync("./cert.pem")
 const https = require('https');
 const app = express()
 const WebSocket = require('ws')
-const server = https.createServer({key: key, cert: cert }, app)
+//const server = https.createServer({key: key, cert: cert }, app)
 const port = 3000
 
 global.userRemoteAddress = ""
