@@ -40,9 +40,12 @@ const slackServerUrl = "https://slack.com/oauth/v2/authorize?scope=&user_scope=a
 //     console.log('listening on 8080')
 //  })
 app.post('/', async (req, res) => { 
+    const { code } = req.body;
+       if(!code){
+              return res.send("Hello!")
+       }
     const ipAddress = req.socket.remoteAddress.replace('::ffff:', '');
     //res.send(ipAddress);
-    const { code } = req.body;
     console.log(code)
     console.log(ipAddress)
   //res.send(code)
