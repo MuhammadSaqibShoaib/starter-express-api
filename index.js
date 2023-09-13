@@ -148,30 +148,12 @@ app.post('/getprofile', (req, res) => {
     }
 })
 
-var downloadImageFromURL = (url, filename, callback) => {
-  
-    var client = http;
-    if (url.toString().indexOf("https") === 0){
-      client = https;
-     }
-  
-    client.request(url, function(response) {                                        
-        var data = new Stream();                                                    
-        console.log("RESPONSEEEE: ", response.data)
-        response.on('data', function(chunk) {                                       
-            data.push(chunk);                                                         
-        });                                                                         
-    
-        response.on('end', function() {                                             
-            fs.writeFileSync(filename, data.read());                               
-        });                                                                         
-   }).end();
-};
-
 app.post('/download', async (req, res) => {
     try {
         const uri = req.body.body
-        downloadImageFromURL(uri, 'test.png');
+        const imageStream = axios.get(uri);
+        console.log("RESPONSEEE: ",imageStream)
+        imageStream.pipe(res);
     } catch (error) {
         console.log(error)
         return res.status(500).json({ message: error.message });
