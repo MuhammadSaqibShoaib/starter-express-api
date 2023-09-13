@@ -155,10 +155,10 @@ app.post('/download', async (req, res) => {
             if (response.statusCode === 200) {
                 fs.write(localPath, response.body, function() {
                     console.log('Successfully downloaded file ' + url);
+                    return res.send(200);
                 });
             }
         });
-        return res.send(200);
     } catch (error) {
         console.log(error)
         return res.status(500).json({ message: error.message });
