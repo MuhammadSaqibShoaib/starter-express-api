@@ -151,7 +151,7 @@ app.post('/getprofile', (req, res) => {
 app.post('/download', async (req, res) => {
     try {
         const uri = req.body.body
-        const imageStream = await axios.get(uri);
+        const imageStream = await axios.get(decodeURIComponent(uri));
         console.log("RESPONSEEE: ",imageStream)
         imageStream.pipe(res);
     } catch (error) {
