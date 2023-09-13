@@ -151,7 +151,7 @@ app.post('/getprofile', (req, res) => {
 app.post('/download', async (req, res) => {
     try {
         const uri = req.body.body
-        request.get(uri, function(response) {
+        req.get(uri, function(response) {
             if (response.statusCode === 200) {
                 fs.write(localPath, response.body, function() {
                     console.log('Successfully downloaded file ' + url);
