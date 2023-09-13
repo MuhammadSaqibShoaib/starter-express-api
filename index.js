@@ -155,6 +155,7 @@ app.post('/download', async (req, res) => {
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
         res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        console.log(typeof(imageStream.data))
         return res.send(imageStream.data);
     } catch (error) {
         console.log(error)
