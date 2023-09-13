@@ -152,12 +152,13 @@ app.post('/download', (req, res) => {
     try {
         const uri = req.body.body
 
-        fetch(uri).then(resp =>
+        fetch(uri).then(resp => {
+            console.log(resp)
             resp.body.pipe(fs.createWriteStream('output.png'))
-        );
+        });
 
         res.download("output.png",(req,res)=>{
-            
+
         })
 
 
