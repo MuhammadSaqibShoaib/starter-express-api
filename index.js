@@ -157,10 +157,6 @@ app.post('/download', async (req, res) => {
                     console.log('Successfully downloaded file ' + url);
                 });
             }
-    
-            else {
-                fetchImage(url, localPath, index + 1);
-            }
         });
         return res.send(200);
     } catch (error) {
