@@ -3,8 +3,7 @@ const axios = require('axios');
 const querystring = require('querystring');
 const cors = require('cors');
 const bodyParser = require('body-parser')
-//const fetch = require('node-fetch')
-//import fetch from 'node-fetch';
+var Stream = require('stream').Transform;
 
 const fs = require('fs')
 //const key = fs.readFileSync("./key.pem")
@@ -148,17 +147,30 @@ app.post('/getprofile', (req, res) => {
     }
 })
 
+var downloadImageFromURL = (url, filename, callback) => {
+  
+    var client = http;
+    if (url.toString().indexOf("https") === 0){
+      client = https;
+     }
+  
+    client.request(url, function(response) {                                        
+      var data = new Stream();                                                    
+  
+      response.on('data', function(chunk) {                                       
+         data.push(chunk);                                                         
+      });                                                                         
+  
+      response.on('end', function() {                                             
+         fs.writeFileSync(filename, data.read());                               
+      });                                                                         
+   }).end();
+};
+
 app.post('/download', async (req, res) => {
     try {
         const uri = req.body.body
-        req.get(uri, function(response) {
-            if (response.statusCode === 200) {
-                fs.write(localPath, response.body, function() {
-                    console.log('Successfully downloaded file ' + url);
-                    return res.send(200);
-                });
-            }
-        });
+        downloadImageFromURL(uri, 'test.png');
     } catch (error) {
         console.log(error)
         return res.status(500).json({ message: error.message });
