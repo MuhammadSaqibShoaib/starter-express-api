@@ -145,8 +145,9 @@ app.post('/getprofile',(req,res)=>{
     }
 })
 
-app.post('/download', function(req, res){
-    const {file} = req.body;
+app.get('/download', function(req, res){
+    //const {file} = req.body;
+    const file = "https://secure.gravatar.com/avatar/974fbf2fc917926e78d7cd7fe3e14bde.jpg?s=512&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0015-512.png"
     console.log(file)
     //console.log(res)
     res.download(file); // Set disposition and send it.
