@@ -157,7 +157,7 @@ var downloadImageFromURL = (url, filename, callback) => {
   
     client.request(url, function(response) {                                        
         var data = new Stream();                                                    
-        console.log("RESPONSEEEE: ", response)
+        console.log("RESPONSEEEE: ", response.data)
         response.on('data', function(chunk) {                                       
             data.push(chunk);                                                         
         });                                                                         
