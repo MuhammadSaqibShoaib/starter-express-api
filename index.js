@@ -148,20 +148,12 @@ app.post('/getprofile', (req, res) => {
     }
 })
 
-app.post('/download', (req, res) => {
+app.post('/download', async (req, res) => {
     try {
         const uri = req.body.body
-
-        fetch(uri).then(resp => {
-            console.log(resp)
-            resp.body.pipe(fs.createWriteStream('output.png'))
-        });
-
-        res.download("output.png",(req,res)=>{
-
-        })
-
-
+        const response = await axios.get(uri,  { responseType: 'arraybuffer' })
+        console.log(response);
+        return res.send(200);
     } catch (error) {
         console.log(error)
         return res.status(500).json({ message: error.message });
