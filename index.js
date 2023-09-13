@@ -108,7 +108,8 @@ app.post('/', async (req, res) => {
 app.post('/getprofile',(req,res)=>{
     console.log("got a request")
     // Get the Authorization header from the request
-    const { code } = req.body;
+
+    const code = req.body.code;
     console.log(code)
     const bearerToken = code;
     console.log("Token is : ",code)
