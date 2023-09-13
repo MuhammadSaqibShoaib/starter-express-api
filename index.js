@@ -153,7 +153,7 @@ app.post('/download', async (req, res) => {
         const uri = req.body.body
         const imageStream = await axios.get(decodeURIComponent(uri));
         console.log("RESPONSEEE: ",imageStream.data)
-        imageStream.pipe(res);
+        return res.status(200).json({ data: imageStream.data });
     } catch (error) {
         console.log(error)
         return res.status(500).json({ message: error.message });
