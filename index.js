@@ -127,6 +127,7 @@ app.post('/getprofile',(req,res)=>{
                 const data = JSON.stringify(response.data)
               // Handle the response here
               console.log('Response:', response.data.profile.first_name);
+              res.header('Access-Control-Allow-Origin', '*');
               return res.send(response.data.profile.image_512)
             })
             .catch((error) => {
