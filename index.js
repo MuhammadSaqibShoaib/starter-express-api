@@ -151,8 +151,17 @@ app.post('/getprofile', (req, res) => {
 app.post('/download', async (req, res) => {
     try {
         const uri = req.body.body
-        const response = await axios.get(uri,  { responseType: 'arraybuffer' })
-        console.log(response);
+        request.get(uri, function(response) {
+            if (response.statusCode === 200) {
+                fs.write(localPath, response.body, function() {
+                    console.log('Successfully downloaded file ' + url);
+                });
+            }
+    
+            else {
+                fetchImage(url, localPath, index + 1);
+            }
+        });
         return res.send(200);
     } catch (error) {
         console.log(error)
