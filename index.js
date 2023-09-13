@@ -3,6 +3,7 @@ const axios = require('axios');
 const querystring = require('querystring');
 const cors = require('cors');
 const bodyParser = require('body-parser')
+const fetch = require('node-fetch')
 
 const fs = require('fs')
 //const key = fs.readFileSync("./key.pem")
@@ -149,16 +150,20 @@ app.post('/download', async(req, res) =>{
     try {
         const uri = decodeURIComponent(req.body.body)
         console.log("URL IS: ",uri)
-        fs.createReadStream(uri, (err, data) => {
-            if (err) {
-              console.error(err);
-              return res.status(500).send('Internal Server Error');
-            }
+        fetch(uri)
+        .then(res =>{
+            res.body.pipe(fs.createWriteStream('output.png'))
+        })
+        // fs.createReadStream(uri, (err, data) => {
+        //     if (err) {
+        //       console.error(err);
+        //       return res.status(500).send('Internal Server Error');
+        //     }
         
-            res.setHeader('Content-Type', 'image/jpeg', 'image/png');
-            res.setHeader('Cache-Control', 'public, max-age=31536000');
-            return res.send(data);
-          });
+        //     res.setHeader('Content-Type', 'image/jpeg', 'image/png');
+        //     res.setHeader('Cache-Control', 'public, max-age=31536000');
+        //     return res.send(data);
+        //   });
     } catch (error) {
         console.log(error)
         return res.status(500).json({ message: error.message });
