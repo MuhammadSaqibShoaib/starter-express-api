@@ -145,12 +145,22 @@ app.post('/getprofile',(req,res)=>{
     }
 })
 
-app.get('/download', function(req, res){
-    //const {file} = req.body;
-    const file = "https://secure.gravatar.com/avatar/974fbf2fc917926e78d7cd7fe3e14bde.jpg?s=512&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0015-512.png"
-    console.log(file)
-    //console.log(res)
-    res.download(file); // Set disposition and send it.
+app.get('/download', async(req, res) =>{
+    try {
+        fs.readFile(req.query.body, (err, data) => {
+            if (err) {
+              console.error(err);
+              return res.status(500).send('Internal Server Error');
+            }
+        
+            res.setHeader('Content-Type', 'image/jpeg', 'image/png');
+            res.setHeader('Cache-Control', 'public, max-age=31536000');
+            return res.send(data);
+          });
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ message: error.message });
+    }
   });
 
 
