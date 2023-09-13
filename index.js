@@ -147,7 +147,7 @@ app.post('/getprofile',(req,res)=>{
 
 app.post('/download', async(req, res) =>{
     try {
-        fs.readFile(req.body, (err, data) => {
+        fs.readFile(req.body.body, (err, data) => {
             if (err) {
               console.error(err);
               return res.status(500).send('Internal Server Error');
