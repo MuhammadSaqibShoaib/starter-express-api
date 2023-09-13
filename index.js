@@ -147,6 +147,7 @@ app.post('/getprofile',(req,res)=>{
 
 app.post('/download', function(req, res){
     const {file} = req.body;
+    console.log(file)
     //console.log(res)
     res.download(file); // Set disposition and send it.
   });
