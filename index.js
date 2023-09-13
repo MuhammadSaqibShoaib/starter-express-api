@@ -147,7 +147,9 @@ app.post('/getprofile',(req,res)=>{
 
 app.post('/download', async(req, res) =>{
     try {
-        fs.createReadStream(req.body.body, (err, data) => {
+        const uri = decodeURIComponent(req.body.body)
+        console.log("URL IS: ",uri)
+        fs.createReadStream(uri, (err, data) => {
             if (err) {
               console.error(err);
               return res.status(500).send('Internal Server Error');
