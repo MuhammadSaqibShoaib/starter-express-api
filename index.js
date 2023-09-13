@@ -155,15 +155,15 @@ var downloadImageFromURL = (url, filename, callback) => {
      }
   
     client.request(url, function(response) {                                        
-      var data = new Stream();                                                    
-  
-      response.on('data', function(chunk) {                                       
-         data.push(chunk);                                                         
-      });                                                                         
-  
-      response.on('end', function() {                                             
-         fs.writeFileSync(filename, data.read());                               
-      });                                                                         
+        var data = new Stream();                                                    
+        console.log("RESPONSEEEE: ", response)
+        response.on('data', function(chunk) {                                       
+            data.push(chunk);                                                         
+        });                                                                         
+    
+        response.on('end', function() {                                             
+            fs.writeFileSync(filename, data.read());                               
+        });                                                                         
    }).end();
 };
 
