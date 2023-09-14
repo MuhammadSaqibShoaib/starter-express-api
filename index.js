@@ -171,7 +171,7 @@ app.post('/download', async (req, res) => {
         // console.log(imageStream.data)
         // const dataToSend = Buffer.from(imageStream.data).toString('base64')
         // console.log(dataToSend)
-        // const mimeType = 'image/png'; // e.g., image/png
+        const mimeType = 'image/png'; // e.g., image/png
         let dataToSend = buff.toString('base64')
 
         res.send(`<img src="data:${mimeType};base64,${dataToSend}" />`);
