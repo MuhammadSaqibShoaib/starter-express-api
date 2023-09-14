@@ -254,7 +254,7 @@ let returnedB64 = Buffer.from(image.data).toString('base64');
 
 
     // res.send(returnedB64)
-    res.send(`<img src="data:${mimeType};base64,${returnedB64}" />`);
+    res.send(returnedB64);
 }
 
 
