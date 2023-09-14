@@ -148,41 +148,100 @@ app.post('/getprofile', (req, res) => {
     }
 })
 
-app.post('/download', async (req, res) => {
-    try {
-        const uri = req.body.body
+// async (req, res) => {
+//     try {
+//         const uri = req.body.body
 
 
-        let config = {
-            method: 'get',
-            maxBodyLength: Infinity,
-            url: 'https://secure.gravatar.com/avatar/974fbf2fc917926e78d7cd7fe3e14bde.jpg?s=512&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0015-512.png',
-            headers: {}
-        };
+//         let config = {
+//             method: 'get',
+//             maxBodyLength: Infinity,
+//             url: 'https://secure.gravatar.com/avatar/974fbf2fc917926e78d7cd7fe3e14bde.jpg?s=512&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0015-512.png',
+//             headers: {}
+//         };
 
-        let imageResp = await axios.request(config)
+//         let imageResp = await axios.request(config)
     
-        // const imageStream = await axios.get(decodeURIComponent(uri));
-        res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-        res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-        console.log(typeof(imageResp.data))
-        let buff= Buffer.from(imageResp.data)
-        // console.log(imageStream.data)
-        // const dataToSend = Buffer.from(imageStream.data).toString('base64')
-        // console.log(dataToSend)
-        const mimeType = 'image/png'; // e.g., image/png
-        let dataToSend = buff.toString('base64')
+//         // const imageStream = await axios.get(decodeURIComponent(uri));
+//         res.header('Access-Control-Allow-Origin', '*');
+//         res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+//         res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//         console.log(typeof(imageResp.data))
+//         let buff= Buffer.from(imageResp.data)
+//         // console.log(imageStream.data)
+//         // const dataToSend = Buffer.from(imageStream.data).toString('base64')
+//         // console.log(dataToSend)
+//         const mimeType = 'image/png'; // e.g., image/png
+//         let dataToSend = buff.toString('base64')
 
-        res.send(`<img src="data:${mimeType};base64,${dataToSend}" />`);
-        // res.send()
-        // return res.send(dataToSend)
-        //return res.status(200).json({ data: imageStream.data });
-    } catch (error) {
-        console.log(error)
-        return res.status(500).json({ message: error.message });
-    }
-});
+//         res.send(`<img src="data:${mimeType};base64,${dataToSend}" />`);
+//         // res.send()
+//         // return res.send(dataToSend)
+//         //return res.status(200).json({ data: imageStream.data });
+//     } catch (error) {
+//         console.log(error)
+//         return res.status(500).json({ message: error.message });
+//     }
+// }
+app.post('/download',getImageFromSlack);
+
+function blobToBase64(blob) {
+    return new Promise((resolve, _) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.readAsDataURL(blob);
+    });
+  }
+  
+  
+  
+  const readImageFromStream = async (fetchRequestResultBody) => {
+        const reader = fetchRequestResultBody.getReader();
+      
+        const stream = new ReadableStream({
+          start(controller) {
+            return pump();
+            // The following function handles each data chunk
+            function pump() {
+              // "done" is a Boolean and value a "Uint8Array"
+              return reader.read().then(({ done, value }) => {
+                // If there is no more data to read
+                if (done) {
+                  console.log("done", done);
+                  controller.close();
+                  return;
+                }
+                // Get the data and send it to the browser via the controller
+                controller.enqueue(value);
+                return pump();
+              });
+            }
+          },
+        });
+      
+        const response = new Response(stream);
+        const blob = await response.blob();
+        // const url = URL.createObjectURL(blob);
+        const base64 = await blobToBase64(blob);
+      
+        return base64;
+      };
+
+
+const getImageFromSlack = async (req,res)=>{
+    let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: 'https://secure.gravatar.com/avatar/974fbf2fc917926e78d7cd7fe3e14bde.jpg?s=512&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0015-512.png',
+        headers: {}
+    };
+
+    let imageResp = await axios.request(config)
+
+    let bs64 = await readImageFromStream(imageResp.body);
+
+    res.send(bs64)
+}
 
 
 
