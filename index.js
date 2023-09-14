@@ -183,8 +183,6 @@ app.post('/getprofile', (req, res) => {
 //         return res.status(500).json({ message: error.message });
 //     }
 // }
-app.post('/download',getImageFromSlack);
-
 function blobToBase64(blob) {
     return new Promise((resolve, _) => {
       const reader = new FileReader();
@@ -192,43 +190,49 @@ function blobToBase64(blob) {
       reader.readAsDataURL(blob);
     });
   }
+
+const readImageFromStream = async (fetchRequestResultBody) => {
+    const reader = fetchRequestResultBody.getReader();
   
-  
-  
-  const readImageFromStream = async (fetchRequestResultBody) => {
-        const reader = fetchRequestResultBody.getReader();
-      
-        const stream = new ReadableStream({
-          start(controller) {
-            return pump();
-            // The following function handles each data chunk
-            function pump() {
-              // "done" is a Boolean and value a "Uint8Array"
-              return reader.read().then(({ done, value }) => {
-                // If there is no more data to read
-                if (done) {
-                  console.log("done", done);
-                  controller.close();
-                  return;
-                }
-                // Get the data and send it to the browser via the controller
-                controller.enqueue(value);
-                return pump();
-              });
+    const stream = new ReadableStream({
+      start(controller) {
+        return pump();
+        // The following function handles each data chunk
+        function pump() {
+          // "done" is a Boolean and value a "Uint8Array"
+          return reader.read().then(({ done, value }) => {
+            // If there is no more data to read
+            if (done) {
+              console.log("done", done);
+              controller.close();
+              return;
             }
-          },
-        });
-      
-        const response = new Response(stream);
-        const blob = await response.blob();
-        // const url = URL.createObjectURL(blob);
-        const base64 = await blobToBase64(blob);
-      
-        return base64;
-      };
+            // Get the data and send it to the browser via the controller
+            controller.enqueue(value);
+            return pump();
+          });
+        }
+      },
+    });
+  
+    const response = new Response(stream);
+    const blob = await response.blob();
+    // const url = URL.createObjectURL(blob);
+    const base64 = await blobToBase64(blob);
+  
+    return base64;
+  };
+
+app.post('/download',getImageFromSlack);
 
 
-const getImageFromSlack = async (req,res)=>{
+  
+  
+  
+  
+
+
+async function getImageFromSlack  (req,res){
     let config = {
         method: 'get',
         maxBodyLength: Infinity,
