@@ -151,17 +151,29 @@ app.post('/getprofile', (req, res) => {
 app.post('/download', async (req, res) => {
     try {
         const uri = req.body.body
-        const imageStream = await axios.get(decodeURIComponent(uri));
+
+
+        let config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: 'https://secure.gravatar.com/avatar/974fbf2fc917926e78d7cd7fe3e14bde.jpg?s=512&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0015-512.png',
+            headers: {}
+        };
+
+        let imageResp = await axios.request(config)
+    
+        // const imageStream = await axios.get(decodeURIComponent(uri));
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
         res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
         // console.log(typeof(imageStream.data))
         // console.log(imageStream.data)
-        const dataToSend = Buffer.from(imageStream.data).toString('base64')
-        console.log(dataToSend)
-        const mimeType = 'image/png'; // e.g., image/png
-    
-    res.send(`<img src="data:${mimeType};base64,${dataToSend}" />`);
+        // const dataToSend = Buffer.from(imageStream.data).toString('base64')
+        // console.log(dataToSend)
+        // const mimeType = 'image/png'; // e.g., image/png
+
+        // res.send(`<img src="data:${mimeType};base64,${dataToSend}" />`);
+        res.send(imageResp.data)
         // return res.send(dataToSend)
         //return res.status(200).json({ data: imageStream.data });
     } catch (error) {
