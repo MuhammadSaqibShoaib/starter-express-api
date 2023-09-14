@@ -15,6 +15,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 const WebSocket = require('ws')
+var FileReader = require('filereader')
 //const server = https.createServer({key: key, cert: cert }, app)
 const port = 3000
 
