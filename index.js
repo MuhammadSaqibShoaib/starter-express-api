@@ -251,7 +251,9 @@ async function getImageFromSlack  (req,res){
     let image = await axios.get('https://secure.gravatar.com/avatar/974fbf2fc917926e78d7cd7fe3e14bde.jpg?s=512&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0015-512.png', {responseType: 'arraybuffer'});
 let returnedB64 = Buffer.from(image.data).toString('base64');
 
-    res.send(returnedB64)
+
+    // res.send(returnedB64)
+    res.send(`<img src="data:${mimeType};base64,${returnedB64}" />`);
 }
 
 
