@@ -233,16 +233,20 @@ app.post('/download',getImageFromSlack);
 
 
 async function getImageFromSlack  (req,res){
-    let config = {
-        method: 'get',
-        maxBodyLength: Infinity,
-        url: 'https://secure.gravatar.com/avatar/974fbf2fc917926e78d7cd7fe3e14bde.jpg?s=512&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0015-512.png',
-        headers: {}
-    };
+    // let config = {
+    //     method: 'get',
+    //     maxBodyLength: Infinity,
+    //     url: 'https://secure.gravatar.com/avatar/974fbf2fc917926e78d7cd7fe3e14bde.jpg?s=512&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0015-512.png',
+    //     headers: {}
+    // };
 
-    let imageResp = await axios.request(config)
+    // let imageResp = await axios.request(config)
 
-    let bs64 = await readImageFromStream(imageResp.body);
+    const requestedData = await fetch(
+        "https://secure.gravatar.com/avatar/974fbf2fc917926e78d7cd7fe3e14bde.jpg?s=512&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0015-512.png"
+      );
+
+    let bs64 = await readImageFromStream(requestedData.body);
 
     res.send(bs64)
 }
