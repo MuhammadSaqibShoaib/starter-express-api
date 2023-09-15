@@ -135,7 +135,7 @@ app.post('/getprofile', (req, res) => {
                 res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
                 res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
-                return res.send(response.data.profile.image_512)
+                return res.send(response.data)
             })
             .catch((error) => {
                 // Handle any errors here
