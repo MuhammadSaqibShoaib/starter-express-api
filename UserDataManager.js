@@ -120,3 +120,9 @@ let returnedB64 = Buffer.from(image.data).toString('base64');
     // res.send(returnedB64)
     res.send(returnedB64);
 }
+
+module.exports = {
+    Login,
+    GetProfile,
+    getImageFromSlack
+}
