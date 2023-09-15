@@ -55,7 +55,7 @@ app.post('/', async (req, res) => {
     if (!code) {
         return res.send("Hello!")
     }
-    const ipAddress = req.socket.remoteAddress.replace('::ffff:', '');
+    //const ipAddress = req.socket.remoteAddress.replace('::ffff:', '');
     //res.send(code)
     try {
         if (code) {
