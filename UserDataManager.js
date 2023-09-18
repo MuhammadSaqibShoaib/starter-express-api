@@ -1,8 +1,9 @@
 const axios = require('axios')
 
 async function Login(req,res){
-    console.log(req.body.code)
+    //console.log(req.body.code)
     const { code } = req.body;
+    console.log("code is: ",code)
     if (!code) {
         return res.send("Hello!")
     }
