@@ -1,5 +1,5 @@
 const axios = require('axios')
-
+const querystring = require('querystring')
 
 async function Login(req,res){
     //console.log(req.body.code)
@@ -27,7 +27,7 @@ async function Login(req,res){
             };
             console.log("Payload: ",payload)
             // Convert the payload to x-www-form-urlencoded format
-            const formData = JSON.stringify(payload);
+            const formData = querystring.stringify(payload);
             console.log("Form data: ",typeof(formData))
             // Define the headers for the request
             const headers = {
