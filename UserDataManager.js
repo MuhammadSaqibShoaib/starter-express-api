@@ -1,5 +1,5 @@
 const axios = require('axios')
-
+app.use(bodyParser.json())
 async function Login(req,res){
     //console.log(req.body.code)
     const { code } = req.body;
