@@ -28,7 +28,7 @@ async function Login(req,res){
             console.log("Payload: ",payload)
             // Convert the payload to x-www-form-urlencoded format
             const formData = JSON.stringify(payload);
-            console.log("Form data: ",formData)
+            console.log("Form data: ",typeof(formData))
             // Define the headers for the request
             const headers = {
                 'Content-Type': 'application/x-www-form-urlencoded'
