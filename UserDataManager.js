@@ -83,13 +83,19 @@ async function GetProfile(req,res){
                 res.header('Access-Control-Allow-Origin', '*');
                 res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
                 res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-
-                return res.send(response.data)
+                const user = {
+                    realName: response.data.profile.real_name,
+                    imageURL: response.data.profile.image_original,
+                    phoneNumber: response.data.profile.phone,
+                    email: response.data.profile.email
+                }
+                console.log(user)
+                return res.send(user)
             })
             .catch((error) => {
                 // Handle any errors here
                 console.error('Error:', error);
-                return res.send("lanat hae bhai")
+                return res.send("Error in fethcing user profile")
             });
 
     }
