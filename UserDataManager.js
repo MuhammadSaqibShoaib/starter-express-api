@@ -10,13 +10,13 @@ async function Login(req,res){
     //const ipAddress = req.socket.remoteAddress.replace('::ffff:', '');
     //res.send(code)
     try {
-        if (code) {
+        if (code !=null) {
             // Do something with the code, e.g., store it or process it
             //res.send(`Received code: ${code}`);
 
             // // Send the code to another URL via POST request
             const url = 'https://slack.com/api/oauth.v2.access';
-
+            console.log("url is: ",url)
             // Define the payload data as an object
             const payload = {
                 code: code,
