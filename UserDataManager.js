@@ -25,7 +25,7 @@ async function Login(req,res){
                 client_secret: '9b4ae13b60f7c66db1e640f44d7cf471',
                 redirect_uri: 'https://muhammadsaqibshoaib.github.io/UnityToSlack/something.html'
             };
-
+            console.log("Payload: ",payload)
             // Convert the payload to x-www-form-urlencoded format
             const formData = querystring.stringify(payload);
             console.log("Form data: ",formData)
