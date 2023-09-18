@@ -85,7 +85,7 @@ async function GetProfile(req,res){
                 res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
                 const user = {
                     realName: response.data.profile.real_name,
-                    imageURL: response.data.profile.image_512,
+                    imageURL: response.data.profile.image_192,
                     phoneNumber: response.data.profile.phone,
                     email: response.data.profile.email
                 }
