@@ -73,39 +73,48 @@ async function GetProfile(req,res){
     const { id } = req.body
     console.log(id)
     console.log(code)
-    const bearerToken = code;
     console.log("Token is : ", code)
-    if (bearerToken) {
+    if (code) {
 
-        const config = {
-            headers: {
-                'Authorization': `Bearer ${bearerToken}`,
-                'user' : `${id}`
-            },
+        // // Send the code to another URL via POST request
+        const url = 'https://slack.com/api/users.info';
+        console.log("url is: ",url)
+        // Define the payload data as an object
+        const payload = {
+            token : code,
+            user: id
         };
-        apiUrl = 'https://slack.com/api/users.info'
-        // Send the GET request
-        axios.get(apiUrl, config)
+        console.log("Payload: ",payload)
+        // Convert the payload to x-www-form-urlencoded format
+        const formData = querystring.stringify(payload);
+        console.log("Form data: ",typeof(formData))
+        // Define the headers for the request
+        const headers = {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        };
+
+        // Make the POST request using Axios
+        axios.post(url, formData, { headers })
             .then((response) => {
-                const data = JSON.stringify(response.data)
-                // Handle the response here
-                console.log('Response:', response.data.profile.first_name);
-                res.header('Access-Control-Allow-Origin', '*');
-                res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-                res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-                const user = {
-                    realName: response.data.profile.real_name,
-                    imageURL: response.data.profile.image_192,
-                    phoneNumber: response.data.profile.phone,
-                    email: response.data.profile.email
+                // Handle the response data here
+                if (!response.data.ok) {
+                    console.log(response.data)
+                    return res.status(401).json({ status: 401, message: "Authentication Failed", data: null })
                 }
-                console.log(user)
-                return res.send(user)
+                const dataToSend ={
+                    realName : response.data.user.profile.real_name,
+                    imageURL : response.data.user.profile.image_192,
+                    phoneNumber : response.data.user.profile.phone,
+                    email : response.data.user.profile.email
+                }
+                console.log(dataToSend)
+                // sending data to unity                
+                return res.status(200).json({ status: 200, message: "Authenticated", data: dataToSend })
             })
             .catch((error) => {
-                // Handle any errors here
+                // Handle errors here
                 console.error('Error:', error);
-                return res.send("Error in fethcing user profile")
+                return res.status(401).json({ status: 402, message: "Authentication Failed", data: null })
             });
 
     }
