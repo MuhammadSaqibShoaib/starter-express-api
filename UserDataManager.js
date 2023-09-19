@@ -43,8 +43,8 @@ async function Login(req,res){
                         return res.status(401).json({ status: 401, message: "Authentication Failed", data: null })
                     }
                     const dataToSend ={
-                        id : response.data.id,
-                        access_token : response.data.access_token
+                        id : response.data.authed_user.id,
+                        access_token : response.data.authed_user.access_token
                     }
                     console.log(dataToSend)
                     // sending data to unity                
