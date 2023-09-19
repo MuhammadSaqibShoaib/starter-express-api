@@ -70,6 +70,8 @@ async function GetProfile(req,res){
     // Get the Authorization header from the request
 
     const { code } = req.body;
+    const { id } = req.body
+    console.log(id)
     console.log(code)
     const bearerToken = code;
     console.log("Token is : ", code)
