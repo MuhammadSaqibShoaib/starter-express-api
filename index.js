@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 var Stream = require('stream').Transform;
 // getting user data manager class
 const userDataManager = require('./UserDataManager')
-const channelManager = require('./ChannelManager')
+const ConversationManager = require('./ConversationManager')
 const fs = require('fs')
 const http = require('http');
 //const key = fs.readFileSync("./key.pem")
@@ -88,7 +88,7 @@ app.post('/getprofile', userDataManager.GetProfile)
 //         return res.status(500).json({ message: error.message });
 //     }
 // }
-app.post('/getchannels', channelManager.GetChannels);
+app.post('/getchannels', ConversationManager.GetChannels);
 app.post('/download',userDataManager.getImageFromSlack);
 
 
