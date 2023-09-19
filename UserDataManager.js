@@ -109,7 +109,7 @@ async function GetProfile(req,res){
                 }
                 console.log(dataToSend)
                 // sending data to unity                
-                return res.status(200).json({ status: 200, message: "Authenticated", data: dataToSend })
+                return res.send(dataToSend)
             })
             .catch((error) => {
                 // Handle errors here
