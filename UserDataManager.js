@@ -42,9 +42,13 @@ async function Login(req,res){
                         console.log(response.data)
                         return res.status(401).json({ status: 401, message: "Authentication Failed", data: null })
                     }
-                    console.log(response.data)
+                    const dataToSend ={
+                        id : response.data.id,
+                        access_token : response.data.access_token
+                    }
+                    console.log(dataToSend)
                     // sending data to unity                
-                    return res.status(200).json({ status: 200, message: "Authenticated", data: response.data })
+                    return res.status(200).json({ status: 200, message: "Authenticated", data: dataToSend })
                 })
                 .catch((error) => {
                     // Handle errors here
