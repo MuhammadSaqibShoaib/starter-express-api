@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 var Stream = require('stream').Transform;
 // getting user data manager class
 const userDataManager = require('./UserDataManager')
+const channelManager = require('./ChannelManager')
 const fs = require('fs')
 const http = require('http');
 //const key = fs.readFileSync("./key.pem")
@@ -87,46 +88,7 @@ app.post('/getprofile', userDataManager.GetProfile)
 //         return res.status(500).json({ message: error.message });
 //     }
 // }
-function blobToBase64(blob) {
-    return new Promise((resolve, _) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result);
-      reader.readAsDataURL(blob);
-    });
-  }
-
-const readImageFromStream = async (fetchRequestResultBody) => {
-    const reader = fetchRequestResultBody.getReader();
-  
-    const stream = new ReadableStream({
-      start(controller) {
-        return pump();
-        // The following function handles each data chunk
-        function pump() {
-          // "done" is a Boolean and value a "Uint8Array"
-          return reader.read().then(({ done, value }) => {
-            // If there is no more data to read
-            if (done) {
-              console.log("done", done);
-              controller.close();
-              return;
-            }
-            // Get the data and send it to the browser via the controller
-            controller.enqueue(value);
-            return pump();
-          });
-        }
-      },
-    });
-  
-    const response = new Response(stream);
-    const blob = await response.blob();
-    // const url = URL.createObjectURL(blob);
-    const base64 = await blobToBase64(blob);
-  
-    return base64;
-  };
-
+app.post('/getchannels', channelManager.GetChannels);
 app.post('/download',userDataManager.getImageFromSlack);
 
 
