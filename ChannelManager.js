@@ -3,6 +3,8 @@ const querystring = require('querystring')
 
 async function GetChannels(req, res){
     const {token} = req.body;
+    console.log("Function is calling");
+    console.log(token);
     try{
         if(token){
             // // Send the code to another URL via POST request
