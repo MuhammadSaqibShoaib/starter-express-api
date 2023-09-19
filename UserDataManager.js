@@ -80,9 +80,10 @@ async function GetProfile(req,res){
         const config = {
             headers: {
                 'Authorization': `Bearer ${bearerToken}`,
+                'user' : `${id}`
             },
         };
-        apiUrl = 'https://slack.com/api/users.profile.get'
+        apiUrl = 'https://slack.com/api/users.info'
         // Send the GET request
         axios.get(apiUrl, config)
             .then((response) => {
