@@ -3,17 +3,19 @@ const querystring = require('querystring')
 
 async function GetChannels(req, res){
     const {token} = req.body;
-    const { type } = JSON.parse(req.body);
+    const { type } = req.body;
     console.log("Function is calling");
+    const typeArr = JSON.parse(type)
+    console.log(typeArr)
     console.log(token);
     try{
-        if(token){
+        if(typeArr){
             // // Send the code to another URL via POST request
         const url = 'https://slack.com/api/conversations.list';
         console.log("url is: ",url)
         // Define the payload data as an object
         const payload = {
-            token : token,
+            token : typeArr,
             type : type
         };
         console.log("Payload: ",payload)
