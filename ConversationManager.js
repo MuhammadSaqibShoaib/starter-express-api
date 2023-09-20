@@ -3,6 +3,9 @@ const querystring = require('querystring')
 
 async function GetChannels(req, res){
     const {token} = req.body;
+    const { type } = req.body;
+    console.log(typeof(type))
+    return res.send(type)
     console.log("Function is calling");
     console.log(token);
     try{
