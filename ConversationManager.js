@@ -37,7 +37,7 @@ async function GetChannels(req, res){
                     console.log(response.data)
                     return res.status(401).json({ status: 401, message: "Authentication Failed", data: null })
                 }
-                const channels = response.data.channels.map(channel => ({ id: channel.id , userID: channel.user}));
+                const channels = response.data.channels.map(channel => ({ id: channel.id , userID: channel.user, is_private: channel.is_private}));
                 console.log(channels)
 
                 // sending data to unity                
