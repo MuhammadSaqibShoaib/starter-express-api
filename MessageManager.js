@@ -93,6 +93,14 @@ async function GetMessages(req,res){
         return res.send("Arguments not found");
     }
 }
+
+
+async function GetChannels(req,res){
+    const { token } = req.body;
+    const { type } = req.type;
+    console.log(typeof(type))
+    return res.send(type)
+}
 module.exports = {
     SendMessage,
     GetMessages
