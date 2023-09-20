@@ -71,7 +71,7 @@ async function GetMessages(req,res){
                     .then((response) =>{
                         //if(response.data.ok == "true"){
                             console.log(response.data.ok)
-                            return res.send(response.data.ok)
+                            return res.send(response.data)
                         //}
                         //else 
                     })
