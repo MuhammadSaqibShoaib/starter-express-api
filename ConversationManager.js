@@ -9,7 +9,7 @@ async function GetChannels(req, res){
     const testType = JSON.parse(type)
     console.log(typeof(testType))
     console.log(testType)
-    return res.send(type)
+    return res.send(testType[0])
     console.log("Function is calling");
     console.log(token);
     try{
