@@ -7,6 +7,9 @@ async function GetChannels(req, res){
     console.log("Function is calling");
     const typeArr = JSON.parse(types)
     console.log(typeof(typeArr))
+    for (let i = 0; i < typeArr.length; i++) {
+        console.log(typeArr[i]);
+      }
     console.log(typeArr)
     console.log(token);
     try{
