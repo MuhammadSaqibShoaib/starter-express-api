@@ -3,13 +3,7 @@ const querystring = require('querystring')
 
 async function GetChannels(req, res){
     const {token} = req.body;
-    const { type } = req.body;
-    console.log(typeof(type))
-    console.log(type)
-    const testType = JSON.parse(type)
-    console.log(typeof(testType))
-    console.log(testType)
-    return res.send(testType[0])
+    const { type } = JSON.parse(req.body);
     console.log("Function is calling");
     console.log(token);
     try{
@@ -19,7 +13,8 @@ async function GetChannels(req, res){
         console.log("url is: ",url)
         // Define the payload data as an object
         const payload = {
-            token : token
+            token : token,
+            type : type
         };
         console.log("Payload: ",payload)
         // Convert the payload to x-www-form-urlencoded format
