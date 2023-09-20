@@ -1,9 +1,9 @@
-const axios = require('axios')
+const axios = require('axios');
 const querystring = require('querystring')
 
 async function GetChannels(req, res){
     const {token} = req.body;
-    const { type } = req.body;
+    const { type } = JSON.parse(req.body);
     console.log(typeof(type))
     return res.send(type)
     console.log("Function is calling");
