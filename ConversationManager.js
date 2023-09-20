@@ -5,22 +5,20 @@ async function GetChannels(req, res){
     const {token} = req.body;
     const { types } = req.body;
     console.log("Function is calling");
-    const typeArr = JSON.parse(types)
-    console.log(typeof(typeArr))
-    for (let i = 0; i < typeArr.length; i++) {
-        console.log(typeArr[i]);
-      }
-    console.log(typeArr)
+    //const typeArr = JSON.parse(types)
+    //console.log(typeof(typeArr))
+    
+    //console.log(typeArr)
     console.log(token);
     try{
-        if(typeArr){
+        if(types){
             // // Send the code to another URL via POST request
         const url = 'https://slack.com/api/conversations.list';
         console.log("url is: ",url)
         // Define the payload data as an object
         const payload = {
             token : token,
-            types : typeArr
+            types : types
         };
         console.log("Payload: ",payload)
         // Convert the payload to x-www-form-urlencoded format
