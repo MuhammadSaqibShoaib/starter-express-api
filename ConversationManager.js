@@ -3,9 +3,9 @@ const querystring = require('querystring')
 
 async function GetChannels(req, res){
     const {token} = req.body;
-    const { type } = req.body;
+    const { types } = req.body;
     console.log("Function is calling");
-    const typeArr = JSON.parse(type)
+    const typeArr = JSON.parse(types)
     console.log(typeArr)
     console.log(token);
     try{
@@ -16,7 +16,7 @@ async function GetChannels(req, res){
         // Define the payload data as an object
         const payload = {
             token : token,
-            type : typeArr
+            types : typeArr
         };
         console.log("Payload: ",payload)
         // Convert the payload to x-www-form-urlencoded format
