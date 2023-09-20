@@ -15,8 +15,8 @@ async function GetChannels(req, res){
         console.log("url is: ",url)
         // Define the payload data as an object
         const payload = {
-            token : typeArr,
-            type : type
+            token : token,
+            type : typeArr
         };
         console.log("Payload: ",payload)
         // Convert the payload to x-www-form-urlencoded format
