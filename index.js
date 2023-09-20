@@ -91,11 +91,8 @@ app.post('/getprofile', userDataManager.GetProfile)
 // }
 app.post('/getchannels', ConversationManager.GetChannels);
 app.post('/download',userDataManager.getImageFromSlack);
-app.post('/sendmessage',MessageManager.SendMessage)
-
-  
-  
-  
+app.post('/sendmessage',MessageManager.SendMessage);
+app.post('/getMessages', MessageManager.GetMessages);
   
 
 
