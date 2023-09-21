@@ -70,7 +70,7 @@ async function GetMessages(req,res){
                 axios.post(url,formData,{headers})
                     .then((response) =>{
                         //if(response.data.ok == "true"){
-                            const extractedData = data.messages.map(({ type, user, text }) => ({ type, user, text }));
+                            const extractedData = response.data.messages.map(({ type, user, text }) => ({ type, user, text }));
 
                             return res.send(extractedData)
                         //}
