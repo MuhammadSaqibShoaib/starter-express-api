@@ -10,6 +10,7 @@ const MessageManager = require('./MessageManager')
 const EventManager =  require('./EventsManager')
 const fs = require('fs')
 const http = require('http');
+const websocket = require('ws')
 //const key = fs.readFileSync("./key.pem")
 //const cert = fs.readFileSync("./cert.pem")
 const https = require('https');
