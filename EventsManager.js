@@ -21,9 +21,10 @@ async function EventHandler(req,res){
               const socket = new WebSocket("https://muhammadsaqibshoaib.github.io/UnityToSlack");
               socket.addListener("open", ()=>{
                 socket.send(extractedData)
-              });
-              console.log(extractedData);
+                console.log(extractedData);
             return res.send(200)
+              });
+              
         }
         catch (error){
             console.log(error)
