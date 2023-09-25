@@ -1,5 +1,6 @@
 const axios = require('axios')
 const querystring = require('querystring')
+const WebSocket = require('ws')
 
 
 // This function will verify token we got from slack events api
@@ -17,6 +18,8 @@ async function EventHandler(req,res){
                 user: req.body.event.user,
                 channel: req.body.event.channel,
               };
+              const socket = new WebSocket("https://muhammadsaqibshoaib.github.io/UnityToSlack:7777");
+              socket.send(extractedData);
               console.log(extractedData);
             return res.send(200)
         }
