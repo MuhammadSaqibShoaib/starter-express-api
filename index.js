@@ -23,6 +23,44 @@ const port = 3000
 
 
 
+// Creating and working with websocket
+// Create a WebSocket server on port 8000
+const wss = new WebSocket.Server({ port: 8000 });
+
+// Event handler for WebSocket connections
+wss.on('connection', (ws) => {
+  console.log('WebSocket connected.');
+
+  // Event handler for receiving messages from WebSocket clients
+  ws.on('message', (message) => {
+    console.log(`Received message: ${message}`);
+
+    // Send a response back to the client
+    ws.send(`Server received: ${message}`);
+  });
+
+  // Event handler for WebSocket disconnections
+  ws.on('close', () => {
+    console.log('WebSocket disconnected.');
+  });
+});
+
+console.log('WebSocket server is running on port 8000');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.get('/', (req, res) => {
     return res.send("Hello World!")
 })
