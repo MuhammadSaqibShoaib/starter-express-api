@@ -23,7 +23,8 @@ const port = 3000
 
 
 
-// Creating and working with websocket
+app.get('/createWebSocket',(req,res)=>{
+    // Creating and working with websocket
 // Create a WebSocket server on port 8000
 const wss = new WebSocket.Server({ port: 8000 });
 
@@ -46,6 +47,7 @@ wss.on('connection', (ws) => {
 });
 
 console.log('WebSocket server is running on port 8000');
+})
 
 
 

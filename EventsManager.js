@@ -18,6 +18,7 @@ async function EventHandler(req,res){
                 user: req.body.event.user,
                 channel: req.body.event.channel,
               };
+              console.log(extractedData)
               return res.send(extractedData);
               
         }
