@@ -18,12 +18,7 @@ async function EventHandler(req,res){
                 user: req.body.event.user,
                 channel: req.body.event.channel,
               };
-              const socket = new WebSocket("ws://muhammadsaqibshoaib.github.io/UnityToSlack:3000");
-              socket.addListener("open", ()=>{
-                socket.send(extractedData)
-                console.log(extractedData);
-                return res.send(200)
-              });
+              return res.send(extractedData);
               
         }
         catch (error){
