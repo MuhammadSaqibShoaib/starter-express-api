@@ -11,7 +11,13 @@ async function EventHandler(req,res){
     }
     else{
         try{
-            console.log(res.body)
+            const extractedData = {
+                type: req.body.event.type,
+                text: req.body.event.text,
+                user: req.body.event.user,
+                channel: req.body.event.channel,
+              };
+              console.log(extractedData);
             return res.send(200)
         }
         catch (error){
