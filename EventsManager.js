@@ -9,6 +9,16 @@ async function EventHandler(req,res){
     if(challenge){
         res.send(challenge)
     }
+    else{
+        try{
+            console.log(res.body)
+            return res.send(200)
+        }
+        catch (error){
+            console.log(error)
+            return res.send(error)
+        }
+    }
 }
 
 module.exports = {
