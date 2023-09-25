@@ -7,6 +7,7 @@ var Stream = require('stream').Transform;
 const userDataManager = require('./UserDataManager')
 const ConversationManager = require('./ConversationManager')
 const MessageManager = require('./MessageManager')
+const EventManager =  require('./EventsManager')
 const fs = require('fs')
 const http = require('http');
 //const key = fs.readFileSync("./key.pem")
@@ -93,7 +94,7 @@ app.post('/getchannels', ConversationManager.GetChannels);
 app.post('/download',userDataManager.getImageFromSlack);
 app.post('/sendmessage',MessageManager.SendMessage);
 app.post('/getMessages', MessageManager.GetMessages);
-  
+app.post("/events",EventManager.verifyToken);
 
 
 
