@@ -3,7 +3,7 @@ const querystring = require('querystring')
 
 
 // This function will verify token we got from slack events api
-async function verifyToken(req,res){
+async function EventHandler(req,res){
     const { challenge } = req.body;
 
     if(challenge){
@@ -12,5 +12,5 @@ async function verifyToken(req,res){
 }
 
 module.exports = {
-    verifyToken
+    EventHandler
 };
