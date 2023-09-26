@@ -27,7 +27,7 @@ app.get('/createWebSocket',(req,res)=>{
   try{
 
     console.log("Here");
-    const wss = new WebSocket.Server({ port: 3000 });
+    const wss = WebSocket.Server({ port: 3000 });
     if(req.query.state == "true"){
       wss.close((error) => {
         if (error) {
