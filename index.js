@@ -29,9 +29,18 @@ app.get('/createWebSocket',(req,res)=>{
     console.log("Here");
     const wss = new WebSocket.Server({ port: 3000 });
     if(req.query.state == "true"){
-      wss.close((error)=>{
-        return res.send(error)
-      })
+      wss.close((error) => {
+        if (error) {
+          console.error('Error closing WebSocket server:', error);
+          return res.status(500).send(error);
+        }
+        console.log('WebSocket server closed.');
+    
+        // Now, you can open a new WebSocket server on the same port or do other operations as needed.
+        // For example, you can start a new WebSocket server here if needed.
+    
+        // Start the new WebSocket server or perform other actions here...
+      });
     }
     else if(req.query.state == "false"){
         
