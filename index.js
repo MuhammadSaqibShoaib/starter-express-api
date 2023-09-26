@@ -22,9 +22,9 @@ var FileReader = require('filereader')
 //const server = https.createServer({key: key, cert: cert }, app)
 const port = 3000
 
+const server = http.createServer(app)
 
-
-const wss = new WebSocket.Server("ws://ruby-zealous-bandicoot.cyclic.app:8000");
+const wss = new WebSocket.Server(server);
    
 wss.on('connection', (ws) => {
   console.log('WebSocket connected.');
@@ -139,4 +139,4 @@ app.post("/events",EventManager.EventHandler);
 
 
 
-app.listen(3000)
+server.listen(8000)
