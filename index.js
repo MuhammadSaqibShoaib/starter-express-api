@@ -24,7 +24,7 @@ const port = 3000
 
 
 
-const wss = new WebSocket.Server({ port: 8000 });
+const wss = new WebSocket.Server("ws://ruby-zealous-bandicoot.cyclic.app:8000");
    
 wss.on('connection', (ws) => {
   console.log('WebSocket connected.');
