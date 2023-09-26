@@ -47,7 +47,9 @@ console.log('WebSocket server is running on port 3000');
     
 
 
-
+app.get("/checksocket",(req,res)=>{
+  console.log(wss.path)
+})
 
 
 
