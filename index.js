@@ -50,9 +50,11 @@ console.log('WebSocket server is running on port 3000');
 app.get("/checksocket",(req,res)=>{
   try{
   console.log(wss.listen)
+  return res.send("OK")
   }
   catch(error){
     console.log(error)
+    return res.send(error)
   }
 })
 
