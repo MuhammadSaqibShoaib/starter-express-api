@@ -40,6 +40,7 @@ app.get('/createWebSocket',(req,res)=>{
     else if(req.query.state == "false"){
         
         // Event handler for WebSocket connections
+        console.log("in else if block")
         wss.on('connection', (ws) => {
           console.log('WebSocket connected.');
         
