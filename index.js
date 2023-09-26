@@ -23,7 +23,7 @@ var FileReader = require('filereader')
 const port = 3000
 
 
-app.get('createWebSocket',(req,res)=>{
+app.get('/createWebSocket',(req,res)=>{
   try{
 
     console.log("Here");
