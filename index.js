@@ -23,59 +23,28 @@ var FileReader = require('filereader')
 const port = 3000
 
 
-app.get('/createWebSocket',(req,res)=>{
-  try{
 
-    console.log("Here");
-    const wss = new WebSocket.Server({ port: 8000 });
-    if(req.query.state == "true"){
-      wss.close((error) => {
-        if (error) {
-          console.error('Error closing WebSocket server:', error);
-          return res.status(500).send(error);
-        }
-        console.log('WebSocket server closed.');
-    
-        // Now, you can open a new WebSocket server on the same port or do other operations as needed.
-        // For example, you can start a new WebSocket server here if needed.
-    
-        // Start the new WebSocket server or perform other actions here...
-      });
-    }
-    else if(req.query.state == "false"){
-        
-        // Event handler for WebSocket connections
-        console.log("in else if block")
-        wss.on('connection', (ws) => {
-          console.log('WebSocket connected.');
-        
-          // Event handler for receiving messages from WebSocket clients
-          ws.on('message', (message) => {
-            console.log(`Received message: ${message}`);
-        
-            // Send a response back to the client
-            ws.send(`Server received: ${message}`);
-          });
-        
-          // Event handler for WebSocket disconnections
-          ws.on('close', () => {
-            console.log('WebSocket disconnected.');
-          });
-        });
-        
-        console.log('WebSocket server is running on port 3000');
-        return res.send(200)
-    }
-    }
-    catch(error){
-      console.log("Error : ",error)
-      return res.send(error)
-    }
+const wss = new WebSocket.Server({ port: 8000 });
+   
+wss.on('connection', (ws) => {
+  console.log('WebSocket connected.');
+
+  // Event handler for receiving messages from WebSocket clients
+  ws.on('message', (message) => {
+    console.log(`Received message: ${message}`);
+
+    // Send a response back to the client
+    ws.send(`Server received: ${message}`);
+  });
+
+  // Event handler for WebSocket disconnections
+  ws.on('close', () => {
+    console.log('WebSocket disconnected.');
+  });
 })
-
-
-
-
+        
+console.log('WebSocket server is running on port 3000');
+    
 
 
 
