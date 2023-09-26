@@ -27,12 +27,17 @@ app.get('/createWebSocket',(req,res)=>{
   try{
 
     console.log("Here");
-    if(req.query.state){
-      console.log("Closing websocket")
-      wss.close();
+    const wss = new WebSocket.Server({ port: 3000 });
+    if(req.query.state == "true"){
+      if(wss.listening){
+        console.log("It's listening");
+        wss.close();
+      }
+      else{
+        console.log("Creating");
+      }
     }
-    else{
-        const wss = new WebSocket.Server({ port: 3000 });
+    else if(req.query.state == "false"){
         
         // Event handler for WebSocket connections
         wss.on('connection', (ws) => {
