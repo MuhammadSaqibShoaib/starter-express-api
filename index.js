@@ -23,34 +23,38 @@ var FileReader = require('filereader')
 const port = 3000
 
 
-try{
+app.get('createWebSocket',(req,res)=>{
+  try{
 
-console.log("Here");
-const wss = new WebSocket.Server({ port: 3000 });
-
-// Event handler for WebSocket connections
-wss.on('connection', (ws) => {
-  console.log('WebSocket connected.');
-
-  // Event handler for receiving messages from WebSocket clients
-  ws.on('message', (message) => {
-    console.log(`Received message: ${message}`);
-
-    // Send a response back to the client
-    ws.send(`Server received: ${message}`);
-  });
-
-  // Event handler for WebSocket disconnections
-  ws.on('close', () => {
-    console.log('WebSocket disconnected.');
-  });
-});
-
-console.log('WebSocket server is running on port 3000');
-}
-catch(error){
-  console.log("Error : ",error)
-}
+    console.log("Here");
+    const wss = new WebSocket.Server({ port: 3000 });
+    
+    // Event handler for WebSocket connections
+    wss.on('connection', (ws) => {
+      console.log('WebSocket connected.');
+    
+      // Event handler for receiving messages from WebSocket clients
+      ws.on('message', (message) => {
+        console.log(`Received message: ${message}`);
+    
+        // Send a response back to the client
+        ws.send(`Server received: ${message}`);
+      });
+    
+      // Event handler for WebSocket disconnections
+      ws.on('close', () => {
+        console.log('WebSocket disconnected.');
+      });
+    });
+    
+    console.log('WebSocket server is running on port 3000');
+    return res.send(200)
+    }
+    catch(error){
+      console.log("Error : ",error)
+      return res.send(error)
+    }
+})
 
 
 
