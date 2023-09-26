@@ -23,7 +23,9 @@ var FileReader = require('filereader')
 const port = 3000
 
 
+try{
 
+console.log("Here");
 const wss = new WebSocket.Server({ port: 3000 });
 
 // Event handler for WebSocket connections
@@ -45,6 +47,10 @@ wss.on('connection', (ws) => {
 });
 
 console.log('WebSocket server is running on port 3000');
+}
+catch(error){
+  console.log("Error : ",error)
+}
 
 
 
