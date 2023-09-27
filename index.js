@@ -137,6 +137,6 @@ app.post("/events",EventManager.EventHandler);
 
 
 
-httpsServer.listen(3010)
+//httpsServer.listen(3010)
 
 app.listen(3000)
