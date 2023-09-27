@@ -22,16 +22,22 @@ var FileReader = require('filereader')
 //const server = https.createServer({key: key, cert: cert }, app)
 const port = 3000
 
-const server = http.createServer(app)
+//const server = http.createServer(app)
 //const httpsServer = https.createServer(app)
-const wss = new WebSocket.Server({ server: server});
+
+let connectedSocket = null;
+const wss = new WebSocket.Server({ host: 'ruby-zealous-bandicoot.cyclic.app', port:3010});
    
 wss.on('connection', (ws) => {
   console.log('WebSocket connected.');
-
+  if(connectedSocket){
+    connectedSocket.close()
+  }
+  connectedSocket = ws;
   // Event handler for receiving messages from WebSocket clients
   ws.on('message', (message) => {
     console.log(`Received message: ${message}`);
+    
 
     // Send a response back to the client
     ws.send(`Server received: ${message}`);
@@ -49,7 +55,7 @@ console.log('WebSocket server is running on port 3000');
 
 app.get("/checksocket",(req,res)=>{
   try{
-  console.log(wss.path)
+  console.log(wss)
   return res.send("OK")
   }
   catch(error){
@@ -59,7 +65,10 @@ app.get("/checksocket",(req,res)=>{
 })
 
 
-
+app.post('/sendSocket',(req,res)=>{
+  connectedSocket.send(req.body.data)
+  return res.send(200)
+})
 
 
 app.get('/', (req, res) => {
@@ -138,5 +147,5 @@ app.post("/events",EventManager.EventHandler);
 
 
 //httpsServer.listen(3010)
-server.listen(port)
-//app.listen(3000)
+//server.listen(port)
+app.listen(3000)
