@@ -26,7 +26,7 @@ const port = 3000
 //const httpsServer = https.createServer(app)
 
 let connectedSocket = null;
-const wss = new WebSocket.Server({ host: 'ruby-zealous-bandicoot.cyclic.app', port:3010});
+const wss = new WebSocket.Server({ host: 'ruby-zealous-bandicoot.cyclic.app', port:3001});
    
 wss.on('connection', (ws) => {
   console.log('WebSocket connected.');
