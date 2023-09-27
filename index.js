@@ -24,7 +24,7 @@ const port = 3000
 
 const server = http.createServer(app)
 
-const wss = new WebSocket.Server({server, path: '/websocket'});
+const wss = new WebSocket.Server({ hosts: 'ruby-zealous-bandicoot.cyclic.app', port: 3010 });
    
 wss.on('connection', (ws) => {
   console.log('WebSocket connected.');
@@ -49,7 +49,7 @@ console.log('WebSocket server is running on port 3000');
 
 app.get("/checksocket",(req,res)=>{
   try{
-  console.log(wss.path)
+  console.log(wss)
   return res.send("OK")
   }
   catch(error){
@@ -64,7 +64,7 @@ app.get("/checksocket",(req,res)=>{
 
 app.get('/', (req, res) => {
     return res.send("Hello World!")
-})
+})  
 // app.get(/fromUnity)
 
 // const wss = new WebSocket.Server({ port : 8080}, ()=>{
