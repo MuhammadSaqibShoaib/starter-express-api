@@ -26,31 +26,31 @@ const port = 3000
 //const httpsServer = https.createServer(app)
 
 let connectedSocket = null;
-const wss = new WebSocket.Server({ host: 'ruby-zealous-bandicoot.cyclic.app', port:3001});
+// const wss = new WebSocket.Server({ host: 'ruby-zealous-bandicoot.cyclic.app', port:3001});
    
-wss.on('connection', (ws) => {
-  console.log('WebSocket connected.');
-  if(connectedSocket){
-    connectedSocket.close()
-  }
-  connectedSocket = ws;
-  // Event handler for receiving messages from WebSocket clients
-  ws.on('message', (message) => {
-    console.log(`Received message: ${message}`);
+// wss.on('connection', (ws) => {
+//   console.log('WebSocket connected.');
+//   if(connectedSocket){
+//     connectedSocket.close()
+//   }
+//   connectedSocket = ws;
+//   // Event handler for receiving messages from WebSocket clients
+//   ws.on('message', (message) => {
+//     console.log(`Received message: ${message}`);
     
 
-    // Send a response back to the client
-    ws.send(`Server received: ${message}`);
-  });
+//     // Send a response back to the client
+//     ws.send(`Server received: ${message}`);
+//   });
 
-  // Event handler for WebSocket disconnections
-  ws.on('close', () => {
-    console.log('WebSocket disconnected.');
-  });
-  ws.on('error',(error)=>{
-    console.log(error)
-  });
-})
+//   // Event handler for WebSocket disconnections
+//   ws.on('close', () => {
+//     console.log('WebSocket disconnected.');
+//   });
+//   ws.on('error',(error)=>{
+//     console.log(error)
+//   });
+//})
         
 console.log('WebSocket server is running on port 3000');
     
