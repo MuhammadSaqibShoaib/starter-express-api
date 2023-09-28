@@ -1,12 +1,4 @@
 const express = require('express')
-<<<<<<< Updated upstream
-const app = express()
-app.all('/', (req, res) => {
-    console.log("Just got a request!")
-    res.send('Yo!')
-})
-app.listen(process.env.PORT || 3000)
-=======
 //const axios = require('axios');
 const cors = require('cors');
 const bodyParser = require('body-parser')
@@ -232,4 +224,3 @@ app.post("/events",EventManager.EventHandler);
 httpsServer.listen(port, ()=>{
   console.log("My server is listening")
 })
->>>>>>> Stashed changes
