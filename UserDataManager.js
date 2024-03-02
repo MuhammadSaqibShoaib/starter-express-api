@@ -23,7 +23,7 @@ async function Login(req,res){
                 code: code,
                 client_id: '5845960045845.5842258443318',
                 client_secret: '9b4ae13b60f7c66db1e640f44d7cf471',
-                redirect_uri: 'https://muhammadsaqibshoaib.github.io/UnityToSlack/something.html'
+                redirect_uri: 'https://tenseigames.com/workspace-demo/something.html'
             };
             console.log("Payload: ",payload)
             // Convert the payload to x-www-form-urlencoded format
