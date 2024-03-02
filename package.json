@@ -4,23 +4,18 @@
   "description": "Testing slack",
   "main": "index.js",
   "scripts": {
-
-    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
-
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2",
     "@slack/bolt": "^3.13.3",
     "axios": "^1.5.0",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
+    "express": "^4.18.2",
     "filereader": "^0.10.3",
     "node-fetch": "^3.3.2",
-    "nodemon": "^3.0.1",
-    "websocket": "^1.0.34",
     "ws": "^8.14.0"
   }
 }

@@ -10,7 +10,7 @@ const MessageManager = require('./MessageManager')
 const EventManager =  require('./EventsManager')
 const fs = require('fs')
 const http = require('http');
-const WebSocket = require('websocket').server
+const WebSocket = require('ws')
 //const key = fs.readFileSync("./key.pem")
 //const cert = fs.readFileSync("./cert.pem")
 const https = require('https');
@@ -22,48 +22,11 @@ var FileReader = require('filereader')
 //const server = https.createServer({key: key, cert: cert }, app)
 const port = 3000
 
-//const server12 = http.createServer(app)
+//const server = http.createServer(app)
 //const httpsServer = https.createServer(app)
 
-//let connectedSocket = null;
-
-//const wss = new WebSocket.Server({ noServer: true });
-
-let socket = null; // Variable to store the WebSocket instance
-
-// Create a route to trigger WebSocket connection
-// app.post('/connect-to-websocket', (req, res) => {
-//   if (socket) {
-//     res.status(200).send('Already connected to WebSocket.');
-//   } else {
-//     // Connect to the WebSocket server
-//     socket = new WebSocket('ws://19ec-116-0-52-234.ngrok-free.app'); // Replace with your WebSocket server URL
-
-//     socket.on('open', () => {
-//       console.log('WebSocket connected.');
-//       res.status(200).send('WebSocket connected successfully.');
-//     });
-
-//     socket.on('close', () => {
-//       console.log('WebSocket disconnected.');
-//       socket = null; // Reset the socket instance on disconnection
-//     });
-//   }
-// });
-const httpsServer = http.createServer(app)
-const wss = new WebSocket({
-  "httpServer" : httpsServer
-})
-// //const wss = new WebSocket.Server({ server: server12});
-
-wss.on("request", request =>{
-  socket = request.accept(null, request.origin)
-  socket.on("open", () => console.log("OPENED!!"))
-  socket.on("close", () => console.log("CLOSED!!"))
-  socket.on("message", (message) => {
-    console.log("Received message: ",message.utf8Data)
-  })
- })
+let connectedSocket = null;
+// const wss = new WebSocket.Server({ host: 'ruby-zealous-bandicoot.cyclic.app', port:3001});
    
 // wss.on('connection', (ws) => {
 //   console.log('WebSocket connected.');
@@ -87,43 +50,11 @@ wss.on("request", request =>{
 //   ws.on('error',(error)=>{
 //     console.log(error)
 //   });
-// })
-
-
-// app.get('/getSocket',(req,res)=>{
-//      try{
-//           wss.on('connection', (ws) => {
-//             console.log('WebSocket connected.');
-//             if(connectedSocket){
-//               connectedSocket.close()
-//             }
-//             connectedSocket = ws;
-//             // Event handler for receiving messages from WebSocket clients
-//             ws.on('message', (message) => {
-//               console.log(`Received message: ${message}`);
-              
-
-//               // Send a response back to the client
-//               ws.send(`Server received: ${message}`);
-//             });
-
-//             // Event handler for WebSocket disconnections
-//             ws.on('close', () => {
-//               console.log('WebSocket disconnected.');
-//             });
-//             ws.on('error',(error)=>{
-//               console.log(error)
-//             });
-//           });
-//       return res.send(200)
-// }
-// catch(error){
-//   console.log(error);
-//   return res.send(error)
-// }
-// })
+//})
+        
 console.log('WebSocket server is running on port 3000');
     
+
 
 app.get("/checksocket",(req,res)=>{
   try{
@@ -138,7 +69,7 @@ app.get("/checksocket",(req,res)=>{
 
 
 app.post('/sendSocket',(req,res)=>{
-  socket.send(req.body.data)
+  connectedSocket.send(req.body.data)
   return res.send(200)
 })
 
@@ -220,7 +151,4 @@ app.post("/events",EventManager.EventHandler);
 
 //httpsServer.listen(3010)
 //server.listen(port)
-//server12.listen(3000)
-httpsServer.listen(port, ()=>{
-  console.log("My server is listening")
-})
+app.listen(3000)
